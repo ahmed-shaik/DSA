@@ -71,6 +71,31 @@ public class Arrays {
             }
         */
     }
+    public static int pairsInArr(int[] arr) {
+        int tp=0;
+        for(int i=0; i<arr.length; i++) {
+            for(int j=i+1; j<arr.length; j++) {
+                System.out.print("("+arr[i] + "," +arr[j] + ") ");
+                tp++;
+            }
+            System.out.println();
+        }   
+        return tp;
+    }
+    public static int printSubArray(int [] arr) {
+        int tp=0;
+        for(int i=0; i<arr.length; i++) {
+            for(int j=i; j<arr.length; j++) {
+                for(int k=i; k<=j; k++) {
+                    System.out.print(arr[k]+" ");
+                    tp++;
+                }
+                System.out.println();
+            }
+            System.out.println();
+        }
+        return tp;
+    }
     public static void main(String[] args) {
         /*
             Creating an Array
@@ -95,9 +120,20 @@ public class Arrays {
         // int key = 0;
         // System.out.println("found at index "+binarySearch(arr, key));
 
-        //Reverse an Array
-        int arr[] = {1, 2, 6, 3, 5};
-        reverseArr(arr);
-        printArray(arr);
+        // //Reverse an Array
+        // int arr[] = {1, 2, 6, 3, 5};
+        // reverseArr(arr);
+        // printArray(arr);
+
+        //pairs in an array
+        // int arr[] = {1, 2, 6, 3, 5};
+        // System.out.println(pairsInArr(arr));
+
+        /*
+            Print Subarrays
+            a continuous part of array 
+        */
+        int arr[] = {2, 4, 6, 8, 10};
+        System.out.println(printSubArray(arr));
     }
 }
