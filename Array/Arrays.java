@@ -88,8 +88,8 @@ public class Arrays {
             for(int j=i; j<arr.length; j++) {
                 for(int k=i; k<=j; k++) {
                     System.out.print(arr[k]+" ");
-                    tp++;
                 }
+                tp++;
                 System.out.println();
             }
             System.out.println();
