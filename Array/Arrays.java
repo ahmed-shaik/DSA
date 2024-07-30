@@ -82,19 +82,67 @@ public class Arrays {
         }   
         return tp;
     }
-    public static int printSubArray(int [] arr) {
-        int tp=0;
-        for(int i=0; i<arr.length; i++) {
-            for(int j=i; j<arr.length; j++) {
-                for(int k=i; k<=j; k++) {
-                    System.out.print(arr[k]+" ");
+    public static int printSubArray(int[] arr) {
+        int tp = 0;
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+    
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i; j < arr.length; j++) {
+                int curr = 0;
+                for (int k = i; k <= j; k++) {
+                    System.out.print(arr[k] + " ");
+                    curr += arr[k];
                 }
+                max = Math.max(max, curr);
+                min = Math.min(min, curr);
                 tp++;
                 System.out.println();
             }
             System.out.println();
         }
+        System.out.println("Max and Min are: " + max + " " + min);
         return tp;
+    }
+    public static int maxSubarraySumbf(int arr[]) {
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i; j < arr.length; j++) {
+                int curr = 0;
+                for (int k = i; k <= j; k++) {
+                    curr += arr[k];
+                }
+                System.out.println(curr);
+                max=Math.max(max, curr);
+            }
+        }
+        return max;
+    } 
+    public static int maxSubarraySumPrefixSum(int arr[]) {
+        int max = Integer.MIN_VALUE;
+        int prefix[] = new int [arr.length];        
+        prefix[0]=arr[0];
+        for(int i=1; i<arr.length; i++) {
+            prefix[i] = prefix[i-1] + arr[i];
+        }
+        for(int i=0; i<arr.length; i++) {
+            for(int j=i; j<arr.length; j++) {
+                int curr=0;
+                curr=i==0?prefix[j]:prefix[j] - prefix[i-1];
+                max=Math.max(max, curr);
+            }
+        }
+        return max;
+    }
+    public static int maxSubarraySumKadanes(int arr[]) {
+        int max=Integer.MIN_VALUE, cs=0;
+        for(int i=0; i<arr.length; i++) {
+            cs+=arr[i];
+            if(cs<0)
+                cs=0;
+            max=Math.max(max,cs);
+        }
+        return max;
     }
     public static void main(String[] args) {
         /*
@@ -133,7 +181,19 @@ public class Arrays {
             Print Subarrays
             a continuous part of array 
         */
-        int arr[] = {2, 4, 6, 8, 10};
-        System.out.println(printSubArray(arr));
+        // int arr[] = {2, 4, 6, 8, 10};
+        // System.out.println(printSubArray(arr));
+
+        //Max SubArray sum brute force
+        // int arr[] = {1, -2, 6, -1, 3};
+        // System.out.println("\n"+maxSubarraySumbf(arr));
+
+        //Max SubArray sum prefix Sum
+        // int arr[] = {1, -2, 6, -1, 3};
+        // System.out.println(maxSubarraySumPrefixSum(arr));
+
+        // KADANE'S
+        int arr[] = {1, -2, 6, -1, 3};
+        System.out.println(maxSubarraySumKadanes(arr));
     }
 }
