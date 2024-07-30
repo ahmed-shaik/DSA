@@ -33,7 +33,7 @@ public class Arrays {
             Binary Search
             prerequisite - sorted arrays
         */
-        int l=arr[0], r=arr.length;
+        int l=0, r=arr.length;
         while (l<=r) {
             int mid = (l+r)/2;
             if(arr[mid]>key) {
