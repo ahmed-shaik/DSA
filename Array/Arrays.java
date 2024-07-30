@@ -193,7 +193,9 @@ public class Arrays {
         // System.out.println(maxSubarraySumPrefixSum(arr));
 
         // KADANE'S
-        int arr[] = {1, -2, 6, -1, 3};
-        System.out.println(maxSubarraySumKadanes(arr));
+        // int arr[] = {1, -2, 6, -1, 3};
+        // System.out.println(maxSubarraySumKadanes(arr));
+
+        
     }
 }
