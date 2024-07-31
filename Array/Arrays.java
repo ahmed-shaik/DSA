@@ -144,6 +144,37 @@ public class Arrays {
         }
         return max;
     }
+    public static int trappedRainWater(int arr[]) {
+        int left[] = new int[arr.length];
+        int right[] = new int[arr.length];
+        left[0]=arr[0];
+        for(int i=1; i<arr.length; i++) {
+            left[i] = Math.max(left[i-1], arr[i]);
+        }
+        right[arr.length-1] =arr[arr.length-1];
+        for(int i=arr.length-2; i>=0; i--) {
+            right[i] = Math.max(right[i+1], arr[i]);
+        }
+        int trapped = 0;
+        for(int i=0; i<arr.length; i++) {
+            trapped += Math.min(left[i], right[i]) - arr[i];
+        }
+        return trapped;
+    }
+
+    public static int buyAndSellStocks(int arr[]) {
+        int buyPrize = Integer.MAX_VALUE;
+        int maxprofit = 0;
+        for(int i=0; i<arr.length; i++) {
+            if(buyPrize<arr[i]) {
+                int profit = arr[i] - buyPrize;
+                maxprofit = Math.max(profit, maxprofit);
+            } else {
+                buyPrize = arr[i];
+            }
+        }
+        return maxprofit;
+    }
     public static void main(String[] args) {
         /*
             Creating an Array
@@ -196,8 +227,13 @@ public class Arrays {
         // int arr[] = {1, -2, 6, -1, 3};
         // System.out.println(maxSubarraySumKadanes(arr));
 
-         
-        
+        //Trapped Rainwater
+        // int arr[]= {4, 2, 0, 6, 3, 2, 5}         ;
+        // System.out.println("Trapped Rainwater : " + trappedRainWater(arr));
+
+        //buy and sell stocks
+        int arr[] = {7, 1, 5, 3, 6, 4};
+        System.out.println(buyAndSellStocks(arr));
 
     }
 }
