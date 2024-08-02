@@ -1,4 +1,5 @@
 package Array;
+//two pointers
 
 public class removeElementclass {
     public int removeElement(int[] nums, int val) {
