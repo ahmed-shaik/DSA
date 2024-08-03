@@ -4,6 +4,7 @@ package Array;
  * RotateArray
  */
 public class RotateArray {
+        //using brute force approach
         public void rotate(int[] nums, int k) {
             int a[]= new int[nums.length];
             for(int i=0; i<nums.length;i++) {
@@ -13,6 +14,7 @@ public class RotateArray {
                 nums[i] = a[i];
             }
         }
+        
     public static void main(String[] args) {
         
     }
