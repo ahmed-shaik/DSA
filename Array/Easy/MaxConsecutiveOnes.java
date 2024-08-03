@@ -1,4 +1,4 @@
-package Array;
+package Array.Easy;
 //https://leetcode.com/problems/max-consecutive-ones/description/
 public class MaxConsecutiveOnes {
     public int findMaxConsecutiveOnes(int[] nums) {

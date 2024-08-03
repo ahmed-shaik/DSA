@@ -1,4 +1,6 @@
-package Array;
+package Array.Easy;
+
+
 
 public class Applyoperationstoanarrays {
     public static int [] Applyoperationstoanarray(int [] nums) {
