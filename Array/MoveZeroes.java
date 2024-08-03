@@ -1,6 +1,7 @@
 package Array;
 
 public class MoveZeroes {
+    //two pointers approach
     public void moveZeroes(int[] nums) {
         int i=0;
         for(int j=0; j<nums.length; j++) {
