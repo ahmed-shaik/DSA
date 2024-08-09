@@ -3,6 +3,8 @@ package Array.Medium;
 public class SubarravSumEaualsK {
     public int subarraySum(int[] nums, int k) {
         int c=0;
+        if(nums.length==1 && k==nums[0])
+            return nums[0];
         int prefixsum[] = new int[nums.length];
         prefixsum[0] = nums[0];
         for(int i=1; i<nums.length; i++) {
@@ -16,8 +18,7 @@ public class SubarravSumEaualsK {
             }
         }
         return c;
-    }
-    public static void main(String[] args) {
+    }    public static void main(String[] args) {
         
     }
 }
