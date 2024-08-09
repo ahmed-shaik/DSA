@@ -1,4 +1,4 @@
-package Array;
+package Array.Medium;
 
 public class SubarravSumEaualsK {
     public int subarraySum(int[] nums, int k) {
