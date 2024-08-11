@@ -1,27 +1,32 @@
 package Array.Easy;
 
+import java.util.Arrays;
+
 /**
  * Majorityelement
  */
 public class Majorityelement {
-    public void sortColors(int[] nums) {
-        int zeros = 0, ones = 0, n = nums.length;
-        for(int num : nums) {
-            if(num == 0) zeros++;
-            else if(num == 1) ones++;
-        }  
-
-        for(int i = 0; i < zeros; ++i) {
-            nums[i] = 0;
+    //sorting
+    public int majorityElement1(int[] nums) {
+        Arrays.sort(nums);
+        return nums[nums.length/2];
+    }
+    //boyer moores voting algorithm
+    
+    public int majorityElement(int[] nums) {
+        int el=0, count=1;
+        for(int i=1; i<nums.length; i++) {
+            if(nums[el] == nums[i]) {
+                count++;
+            } else {
+                count--;
+            }
+            if(count==0) {
+                el=i;
+                count=1;
+            }
         }
-
-        for(int i = zeros; i < zeros + ones; ++i) {
-            nums[i] = 1;
-        }
-
-        for(int i = zeros + ones; i < n; ++i) {
-            nums[i] = 2;
-        }
+        return nums[el];
     }
     public static void main(String[] args) {
         
