@@ -1,6 +1,7 @@
 package Array.Medium;
 
-public class Maxsubarray {
+public class Maxsubarray { 
+    
     public int maxSubArray(int[] nums) {
         int max = Integer.MIN_VALUE, cs=0;
         for(int i=0; i<nums.length; i++) {
