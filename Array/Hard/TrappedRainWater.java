@@ -1,4 +1,4 @@
-package Array;
+package Array.Hard;
 
 public class TrappedRainWater {
     public static int rainWater(int height[]) {
