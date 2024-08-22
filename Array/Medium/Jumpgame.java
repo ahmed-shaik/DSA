@@ -12,6 +12,7 @@ public class Jumpgame {
         } 
         return true;
      }
+     
     public static void main(String[] args) {
         
     }
