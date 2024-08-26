@@ -1,6 +1,7 @@
 package Array.Easy;
 
 public class CheckifArrayIsSortedandRotated {
+    
     public boolean check(int[] nums) {
         int n = nums.length,count=0;
         for(int i=0;i<n-1;i++){
