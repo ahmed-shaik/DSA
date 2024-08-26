@@ -3,6 +3,7 @@ package Array.Easy;
 
 
 public class Applyoperationstoanarrays {
+
     public static int [] Applyoperationstoanarray(int [] nums) {
         int i=0;
         for(int j=0; j<nums.length; j++) {
