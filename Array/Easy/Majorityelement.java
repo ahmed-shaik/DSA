@@ -11,6 +11,8 @@ public class Majorityelement {
         Arrays.sort(nums);
         return nums[nums.length/2];
     }
+
+    
     //boyer moores voting algorithm
     
     public int majorityElement(int[] nums) {
