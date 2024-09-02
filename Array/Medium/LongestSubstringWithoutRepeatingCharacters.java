@@ -9,6 +9,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
         StringBuilder sb = new StringBuilder();
         int max = 0;
         
+        
         for (int i = 0; i < s.length(); i++) {
             char currentChar = s.charAt(i);
             
