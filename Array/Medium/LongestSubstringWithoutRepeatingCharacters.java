@@ -11,6 +11,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
         
         
         for (int i = 0; i < s.length(); i++) {
+        
             char currentChar = s.charAt(i);
             
             // If current character is in the StringBuilder, move the start position
