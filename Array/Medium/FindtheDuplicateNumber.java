@@ -41,4 +41,5 @@ public class FindtheDuplicateNumber {
     public static void main(String[] args) {
         
     }
+    
 }
