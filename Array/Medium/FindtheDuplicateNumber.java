@@ -6,6 +6,7 @@ public class FindtheDuplicateNumber {
 
         
         // start hopping from Node_#0
+        
         int slow=0, fast=0;
             
         int check = 0;
