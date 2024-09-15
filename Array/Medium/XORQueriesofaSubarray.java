@@ -13,7 +13,7 @@ public class XORQueriesofaSubarray {
             prefix[i] = prefix[i-1] ^ arr[i];
         } 
 
-        for(int i=0; i<queries.length; i++){
+        for(int i=0; i<queries.length;  i++){
             int left = queries[i][0];
             int right = queries[i][1];
             if(left == 0){
