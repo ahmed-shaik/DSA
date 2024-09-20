@@ -20,6 +20,7 @@ public class New {
         String s1 = "apple apple";
         String s2 = "banana";
         System.out.println(uncommonFromSentences(s1, s2));
+    
     }
     
 }
