@@ -28,6 +28,7 @@ public class Majorityelement {
                 count=1;
             }
         }
+        
         return nums[el];
     }
     public static void main(String[] args) {
