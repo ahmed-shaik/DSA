@@ -26,6 +26,7 @@ public class MinimumNumberofDaystoMakemBouquets {
                         n++; // Increment number of bouquets
                         st = 0; // Reset the streak
                     }
+                    
                 } else {
                     
                     st = 0; // Reset the streak if flower hasn't bloomed by 'day'
