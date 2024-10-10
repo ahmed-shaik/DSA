@@ -3,6 +3,7 @@ package Array.Medium;
 /**
  * Jumpgame
  */
+
 public class Jumpgame {
     public boolean canJump(int[] nums) {
         int reachable = 0;
