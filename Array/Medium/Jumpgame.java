@@ -10,6 +10,7 @@ public class Jumpgame {
         for(int i = 0; i < nums.length; i ++) {
             
             if(i > reachable) return false;
+            
             reachable = Math.max(reachable, i + nums[i]);
         } 
         
