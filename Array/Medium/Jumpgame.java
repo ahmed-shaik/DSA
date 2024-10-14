@@ -16,6 +16,7 @@ public class Jumpgame {
             reachable = Math.max(reachable, i + nums[i]);
         } 
         
+        
         return true;
      }
      
