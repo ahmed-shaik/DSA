@@ -87,6 +87,34 @@ public class Recursion_basic {
         }
         return tilingProblem(n-1) + tilingProblem(n-2);
     }
+    public static void rDuplicaes(String s, int i, StringBuilder sb, boolean map[]) {
+        if(i==s.length())  {
+            System.out.println(sb);
+            return;
+        }
+        if(map[s.charAt(i)-'a'] == false) {
+            map[s.charAt(i)-'a']=true;
+            rDuplicaes(s, i+1, sb.append(s.charAt(i)), map);
+        } else {
+            rDuplicaes(s, i+1, sb, map);
+        }
+    }
+    public static int friendsPairing(int n) {
+        if(n==1 || n==2) {
+            return n;
+        }
+        return friendsPairing(n-1) + (n-1)*friendsPairing(n-2);
+    }
+    public static void printBin(int n, int lp, String sb) {
+        if(n==0) {
+            System.out.println(sb);
+            return;
+        }
+        printBin(n-1, 0, sb+"0");
+        if(lp==0) {
+            printBin(n-1, 1, sb+"1");
+        }
+    }
     public static void main(String[] args) {
         // PrintUpto10(10);
         // System.out.println(fact(3));
@@ -97,7 +125,10 @@ public class Recursion_basic {
         // System.out.println(lastOcc1(new int[]{1,2,9,4,9,5}, 0, 8, -1));
         // System.out.println(lastOcc2(new int[]{1,2,9,4,9,5}, 0, 9));
         // System.out.println(printxPn(2, 10));
-        System.out.println(tilingProblem(3));
-
+        // System.out.println(tilingProblem(3));
+        // boolean map[] = new boolean[26];
+        // rDuplicaes("appnnacollege", 0, new StringBuilder(""), map);
+        // System.out.println(friendsPairing(3));
+        printBin(4, 0, "");
     }
 }
