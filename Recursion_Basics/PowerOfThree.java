@@ -12,6 +12,7 @@ public class PowerOfThree {
             }
             
             return (n%3==0) && isPowerOfThree(n/3);
+            
         }
     }
 }
