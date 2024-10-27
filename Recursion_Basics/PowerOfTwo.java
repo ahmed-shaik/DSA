@@ -13,6 +13,7 @@ public class PowerOfTwo {
                 return true;
             }
             return (n%2==0) && isPowerOfTw0(n/2);
+            
         }
     }
 }
