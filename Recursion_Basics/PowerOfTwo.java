@@ -9,6 +9,7 @@ public class PowerOfTwo {
                 return false;
                 
             }
+            
             if(n==1) {
                 return true;
             }
