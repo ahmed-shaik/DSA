@@ -22,4 +22,5 @@ public class RemoveOutermostParentheses {
             return newString.toString();
         }
     }
+    
 }
