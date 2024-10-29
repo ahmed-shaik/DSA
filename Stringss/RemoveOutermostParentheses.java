@@ -8,7 +8,6 @@ public class RemoveOutermostParentheses {
             char[] c = s.toCharArray();
             StringBuilder newString = new StringBuilder();
             int open = 1;
-            int openLeft = 0;
             for (int i = 1; i < len; i++) {
                 if (c[i] == '(') {
                     open++;
@@ -22,5 +21,5 @@ public class RemoveOutermostParentheses {
             return newString.toString();
         }
     }
-    
+
 }
