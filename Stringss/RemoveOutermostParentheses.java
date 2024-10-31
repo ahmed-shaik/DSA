@@ -2,6 +2,7 @@ package Stringss;
 
 
 public class RemoveOutermostParentheses {
+    
     class Solution {
         public String removeOuterParentheses(String s) {
             int len = s.length();
