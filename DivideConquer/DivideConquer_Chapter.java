@@ -55,9 +55,23 @@ public class DivideConquer_Chapter {
         arr[i] = temp;
         return i;
     }
+    public static int searchInRotatedSortedArray(int[] arr, int tar, int si, int ei) {
+        int mid = si + (ei-si)/2;
+        while(si<=ei) {
+            if(arr[mid]<arr[mid-1] && arr[mid]>arr[mid+1]) {
+                return mid;
+            }
+            if(arr[mid]>tar) {
+                ei = mid-1;
+            } else if(arr[mid]<tar) {
+                si = mid+1;
+            }
+        }
+        return -1;
+    }
     public static void main(String[] args) {
-        int [] arr = {6,3,9,5,2,8};
-        quickSort(arr, 0, arr.length-1);
+        int [] arr = {4,5,6,7,0,1,2};
+        System.out.println(searchInRotatedSortedArray(arr, 0, 0, arr.length-1));
         for(int i=0; i<arr.length; i++) {
             System.out.print(arr[i] + " ");
         }
