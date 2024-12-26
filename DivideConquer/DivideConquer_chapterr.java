@@ -1,6 +1,6 @@
 package DivideConquer;
 
-public class DivideConquer_Chapter {
+public class DivideConquer_chapterr {
     public static void mergeSort(int arr[], int si, int ei) {
         if(si>=ei) {
             return;
@@ -56,18 +56,26 @@ public class DivideConquer_Chapter {
         return i;
     }
     public static int searchInRotatedSortedArray(int[] arr, int tar, int si, int ei) {
+        if(si > ei) {
+            return -1;
+        }
         int mid = si + (ei-si)/2;
-        while(si<=ei) {
-            if(arr[mid]<arr[mid-1] && arr[mid]>arr[mid+1]) {
-                return mid;
+        if(arr[mid] == tar) {
+            return mid;
+        }
+        if(arr[si]<=mid) {
+            if(arr[si] <= tar && tar<=arr[mid]) {
+                return searchInRotatedSortedArray(arr, tar, si, mid-1);
+            } else {
+                return searchInRotatedSortedArray(arr, tar, mid+1, ei);
             }
-            if(arr[mid]>tar) {
-                ei = mid-1;
-            } else if(arr[mid]<tar) {
-                si = mid+1;
+        } else {
+            if(arr[mid] <= tar && tar<=arr[ei]) {
+                return searchInRotatedSortedArray(arr, tar, mid+1, ei);
+            } else {
+                return searchInRotatedSortedArray(arr, tar, si, mid-1);
             }
         }
-        return -1;
     }
     public static void main(String[] args) {
         int [] arr = {4,5,6,7,0,1,2};
