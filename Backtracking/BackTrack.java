@@ -72,19 +72,90 @@ public class BackTrack {
             System.out.println();
         }
     }
+    public static int gridWays(int i, int j, int n, int m) {
+        if(i==n-1 && j==m-1) {
+            return 1;
+        } else if(i==n || j==n) {
+            return 0;
+        }
+        return gridWays(i+1, j, n, m) + gridWays(i, j+1, n, m); 
+    }
+    public static boolean sudukoSolver(int[][] arr, int row, int col) {
+        if(row==9) {
+            return true;
+        }
+        int nextRow=row, nextCol=col+1;
+        if(col+1==9) {
+            nextRow=row+1;
+            nextCol=0;
+        }
+        if(arr[row][col] !=0) {
+            return sudukoSolver(arr, nextRow, nextCol);
+        }
+        for(int i=1; i<=9; i++) {
+            if(isSafeSudoku(arr, row, col, i)) {
+                arr[row][col] = i;
+                if(sudukoSolver(arr, nextRow, nextCol)) {
+                    return true;
+                }
+                arr[row][col]=0;
+            }
+        }
+        return false;
+    }
+    public static boolean isSafeSudoku(int arr[][], int row, int col, int d ) {
+        for(int i=0; i<9; i++) {
+            if(arr[row][i]==d) {
+                return false;
+            }
+        }
+        for(int i=0; i<9; i++) {
+            if(arr[i][col]==d) {
+                return false;
+            }
+        }
+        int sr=(row/3)*3,sc=(col/3)*3;
+        for(int i=sr; i<sr+3; i++) {
+            for(int j=sc; j<sc+3; j++) {
+                if(arr[i][j]==d) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
     public static void main(String[] args) {
         // int arr[] = new int[5];
         // backTrackArray(0, arr);
         // printArray(arr);
         // findSubSets("abc", 0, "");
         // findPermutations("abc", "");
-        int n=5;
-        char board [][] = new char[n][n];
-        for(int i=0; i<n; i++) {
-            for(int j=0; j<n; j++) {
-                board[i][j] = 'x';
+        // int n=5;
+        // char board [][] = new char[n][n];
+        // for(int i=0; i<n; i++) {
+        //     for(int j=0; j<n; j++) {
+        //         board[i][j] = 'x';
+        //     }
+        // }
+        // nQueens(board, 0);
+        // System.out.println(gridWays(0, 0, 3, 3));
+        int sudoku[][] = {
+            {0,0,8,0,0,0,0,0,0},
+            {4,9,0,1,5,7,0,0,2},
+            {0,0,3,0,0,4,1,9,0},
+            {1,8,5,0,6,0,0,2,0},
+            {0,0,0,0,2,0,0,6,0},
+            {9,6,0,4,0,5,3,0,0},
+            {0,3,0,0,7,2,0,0,4},
+            {0,4,9,0,3,0,0,5,7},
+            {8,2,7,0,0,9,0,1,3}
+        };
+        System.out.println(sudukoSolver(sudoku, 0, 0));
+        for(int i=0; i<9; i++) {
+            for(int j=0; j<9; j++) {
+                System.out.print(sudoku[i][j]+ " ");
             }
+            System.out.println();
         }
-        nQueens(board, 0);
     }
 }
