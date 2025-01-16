@@ -7,6 +7,16 @@ import java.util.*;
  */
 
 public class ArrayListChapter {
+    public static int storedWaterBrute(ArrayList<Integer> height)  {
+        int cur=0, max=Integer.MIN_VALUE;
+        for(int i=0; i<height.size(); i++) { 
+            for(int j=i+1; j<height.size(); j++) {
+                cur = (j-i)*Math.min(height.get(i), height.get(j));
+                max = Math.max(max, cur);
+            }
+        }
+        return max;
+    }
     public static void main(String[] args) {
         // ArrayList<Integer> list = new ArrayList<>();
         // // ArrayList<String> l2 = new ArrayList<>();
@@ -42,22 +52,33 @@ public class ArrayListChapter {
         // Collections.sort(list, Collections.reverseOrder());
         // System.out.println(list);
 
-        ArrayList<ArrayList<Integer>> mainList = new ArrayList<>();
-        ArrayList<Integer> subList1 = new ArrayList<>();
-        ArrayList<Integer> subList2 = new ArrayList<>();
-        ArrayList<Integer> subList3 = new ArrayList<>();
-        for(int i=1; i<=5; i++) {
-            subList1.add(1*i);
-            subList2.add(2*i);
-            subList3.add(3*i);
-        }
-        mainList.add(subList1);
-        mainList.add(subList2);
-        mainList.add(subList3);
-        // System.out.println(mainList);
-        for(int i=0; i<mainList.size(); i++) {
-            System.out.println(mainList.get(i));
-        }
+        // ArrayList<ArrayList<Integer>> mainList = new ArrayList<>();
+        // ArrayList<Integer> subList1 = new ArrayList<>();
+        // ArrayList<Integer> subList2 = new ArrayList<>();
+        // ArrayList<Integer> subList3 = new ArrayList<>();
+        // for(int i=1; i<=5; i++) {
+        //     subList1.add(1*i);
+        //     subList2.add(2*i);
+        //     subList3.add(3*i);
+        // }
+        // mainList.add(subList1);
+        // mainList.add(subList2);
+        // mainList.add(subList3);
+        // // System.out.println(mainList);
+        // for(int i=0; i<mainList.size(); i++) {
+        //     System.out.println(mainList.get(i));
+        // }
+        ArrayList<Integer> height = new ArrayList<>();
+        height.add(1);
+        height.add(8);
+        height.add(6);
+        height.add(2);
+        height.add(5);
+        height.add(4);
+        height.add(8);
+        height.add(3);
+        height.add(7);
+        System.out.println(storedWaterBrute(height));
     }
 }
 
