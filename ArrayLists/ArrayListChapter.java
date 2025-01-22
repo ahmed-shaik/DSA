@@ -17,6 +17,56 @@ public class ArrayListChapter {
         }
         return max;
     }
+    public static int storedWaterLinear(ArrayList<Integer> height) {
+        // two pointer apporach
+        int max=Integer.MIN_VALUE, cur=0, lp=0, rp=height.size()-1;
+        while(lp<rp) {
+            cur = (rp-lp)*Math.min(height.get(lp), height.get(rp));
+            max = Math.max(max, cur);
+            if(height.get(lp)<height.get(rp)) {
+                lp++;
+            } else {
+                rp--;
+            }
+        }
+        return max;
+    }       
+    public static boolean pairSum1(ArrayList<Integer> list, int tar) {
+        int lp=0, rp=list.size()-1, curr=0;
+        while(lp<rp) {
+            curr = list.get(lp)+list.get(rp);
+            if(curr==tar) { 
+                return true;
+            }
+            else if(curr<tar) {
+                lp++;
+            } else {
+                rp--;
+            }
+        }
+        return false;
+    }
+    public static boolean pairSum2(ArrayList<Integer> list, int tar) {
+        int rp=0,lp=0;
+        for(int i=0; i<list.size()-1; i++) {
+            if(list.get(i)>list.get(i+1)) {
+                rp=i;
+                lp=i+1;
+                break;
+            }
+        }
+        while(lp!=rp) {
+            int sum = list.get(lp)+list.get(rp);
+            if(sum==tar) {
+                return true;
+            } else if(sum<tar) {
+                lp = (lp+1)%list.size();
+            } else {
+                rp = (list.size()+rp-1)%list.size();
+            }
+        }
+        return false;
+    }
     public static void main(String[] args) {
         // ArrayList<Integer> list = new ArrayList<>();
         // // ArrayList<String> l2 = new ArrayList<>();
@@ -78,7 +128,8 @@ public class ArrayListChapter {
         height.add(8);
         height.add(3);
         height.add(7);
-        System.out.println(storedWaterBrute(height));
+        Collections.sort(height);
+        // System.out.println(storedWaterLinear(height));
+        System.out.println(pairSum1(height, 16));
     }
 }
-
