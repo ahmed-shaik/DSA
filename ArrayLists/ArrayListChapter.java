@@ -67,6 +67,30 @@ public class ArrayListChapter {
         }
         return false;
     }
+    public static boolean monotonicArrayList(ArrayList<Integer> list) {
+        boolean flag = false;
+        for(int i=0; i<list.size()-1; i++) {
+            if(list.get(i)<=list.get(i+1)) {
+                flag = true;
+            } else {
+                flag = false;
+                break;
+            }
+        }
+        if(flag) {
+            return true;
+        }
+        flag = false;
+        for(int i=0; i<list.size()-1; i++) {
+            if(list.get(i)>=list.get(i+1)) {
+                flag = true;
+            } else {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
     public static void main(String[] args) {
         // ArrayList<Integer> list = new ArrayList<>();
         // // ArrayList<String> l2 = new ArrayList<>();
@@ -119,17 +143,21 @@ public class ArrayListChapter {
         //     System.out.println(mainList.get(i));
         // }
         ArrayList<Integer> height = new ArrayList<>();
+        // height.add(1);
+        // height.add(8);
+        // height.add(6);
+        // height.add(2);
+        // height.add(5);
+        // height.add(4);
+        // height.add(8);
+        // height.add(3);
+        // height.add(7);
+        // Collections.sort(height);
+        // // System.out.println(storedWaterLinear(height));
+        // System.out.println(pairSum1(height, 16));
         height.add(1);
-        height.add(8);
-        height.add(6);
-        height.add(2);
-        height.add(5);
-        height.add(4);
-        height.add(8);
         height.add(3);
-        height.add(7);
-        Collections.sort(height);
-        // System.out.println(storedWaterLinear(height));
-        System.out.println(pairSum1(height, 16));
-    }
+        height.add(2);
+        System.out.println(monotonicArrayList(height));
+    }   
 }
