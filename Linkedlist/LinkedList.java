@@ -69,6 +69,7 @@ public class LinkedList {
         head = head.next;
         size--;
         return val;
+
     }
     public static void main(String[] args) {
         LinkedList ll = new LinkedList();
