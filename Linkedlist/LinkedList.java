@@ -130,6 +130,7 @@ public class LinkedList {
             return -1;
         } else {
             return idx + 1;
+
         }
 
     }
