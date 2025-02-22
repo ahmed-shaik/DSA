@@ -126,15 +126,11 @@ public class LinkedList {
             return 0;
         }
         int idx = helper(head.next, key);
-        
         if (idx == -1) {
             return -1;
-
         } else {
             return idx + 1;
-
         }
-
     }
     
 
