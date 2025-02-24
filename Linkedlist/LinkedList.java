@@ -132,11 +132,22 @@ public class LinkedList {
             return idx + 1;
         }
     }
-    
-
 
     public int recSearch(int i, Node temp, int key) {
         return helper(head, key);
+    }
+
+    public void itrRev() {
+        Node prev = null;
+        Node curr = tail = head;
+        Node next;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
     }
 
     public static void main(String[] args) {
@@ -149,6 +160,8 @@ public class LinkedList {
         // ll.removeLast();
         // ll.printList();
         // System.out.println(ll.itrSearch(5));
-        System.out.println(ll.recSearch(0, head, 9));
+        // System.out.println(ll.recSearch(0, head, 9));
+        ll.itrRev();
+        ll.printList();
     }
 }
