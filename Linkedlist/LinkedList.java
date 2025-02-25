@@ -151,6 +151,7 @@ public class LinkedList {
     }
 
     public static void main(String[] args) {
+
         LinkedList ll = new LinkedList();
         ll.addFirst(3);
         ll.addFirst(2);
