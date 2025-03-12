@@ -165,21 +165,66 @@ public class LinkedList {
         size--;
     }
 
+    public Node findMid(Node head) {
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    public boolean checkPalindrome() {
+        // 1 - find mid
+        if (head == null || head.next == null) {
+            return true;
+        }
+        Node mid = findMid(head);
+        // 2 - reverse second half
+        Node prev = null;
+        Node curr = mid;
+        Node next;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        // 3 - compare first half and second half
+        Node first = head;
+        Node second = prev;
+        while (second != null) {
+            if (first.data != second.data) {
+                return false;
+            }
+            first = first.next;
+            second = second.next;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
 
         LinkedList ll = new LinkedList();
-        ll.addFirst(3);
-        ll.addFirst(2);
-        ll.addFirst(0);
-        ll.add(1, 1);
-        ll.printList();
+        // ll.addFirst(3);
+        // ll.addFirst(2);
+        // ll.addFirst(0);
+        // ll.add(1, 1);
+        // ll.printList();
         // ll.removeLast();
         // ll.printList();
         // System.out.println(ll.itrSearch(5));
         // System.out.println(ll.recSearch(0, head, 9));
-        ll.itrRev();
+        // ll.itrRev();
+        // ll.printList();
+        // ll.deleteNthNodeFromEnd(3);
+        ll.addFirst(1);
+        ll.addFirst(7);
+        ll.addFirst(8);
+        ll.addFirst(7);
+        ll.addFirst(1);
         ll.printList();
-        ll.deleteNthNodeFromEnd(3);
-        ll.printList();
+        System.out.println(ll.checkPalindrome());
     }
 }
