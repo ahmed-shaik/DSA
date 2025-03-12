@@ -1,4 +1,4 @@
-package Linkedlist;
+package Linkedlist.medium;
 
 // Given the head of a linked list, remove the nth node from the end of the list and return its head.
 public class RemoveNthNodeFromEndofList {
@@ -32,4 +32,3 @@ public class RemoveNthNodeFromEndofList {
         // return head;
     }
 }
-
