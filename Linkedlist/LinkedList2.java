@@ -158,3 +158,4 @@ public class LinkedList2 {
         ll.printList();
     }
 }
+
