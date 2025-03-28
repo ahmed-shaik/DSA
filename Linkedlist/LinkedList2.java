@@ -1,6 +1,6 @@
 package Linkedlist;
 
-import java.util.LinkedList;
+// import java.util.LinkedList;
 
 public class LinkedList2 {
     public static class Node {
@@ -129,6 +129,30 @@ public class LinkedList2 {
         return node.next;
     }
 
+    public void zigzag() {
+        Node mid = getMid(head);
+        Node prev = null, curr = mid.next;
+        while (curr != null) {
+            Node next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        mid.next = null;
+        Node right = prev;
+        Node left = head;
+        Node nextL, nextR;
+        while (left != null && right != null) {
+            nextL = left.next;
+            left.next = right;
+            nextR = right.next;
+            right.next = nextL;
+
+            left = nextL;
+            right = nextR;
+        }
+    }
+
     public static void main(String args[]) {
         // LinkedList2 ll = new LinkedList2();
         // ll.head = new Node(1);
@@ -148,14 +172,90 @@ public class LinkedList2 {
         // ll.removeFirst();
         // ll.removeFirst();
         LinkedList2 ll = new LinkedList2();
-        ll.addFirst(1);
-        ll.addFirst(2);
-        ll.addFirst(3);
-        ll.addFirst(4);
         ll.addFirst(5);
+        ll.addFirst(4);
+        ll.addFirst(3);
+        ll.addFirst(2);
+        ll.addFirst(1);
         ll.printList();
-        ll.head = ll.mergeSort(ll.head);
+        // ll.head = ll.mergeSort(ll.head);
+        ll.zigzag();
         ll.printList();
+
+        DoubleLL dll = new DoubleLL();
+        dll.addFirst(3);
+        dll.addFirst(2);
+        dll.addFirst(1);
+        dll.print();
+        dll.reverse();
+        dll.print();
     }
 }
 
+class DoubleLL {
+    class Node {
+        int data;
+        Node next;
+        Node prev;
+
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+            this.prev = null;
+        }
+    }
+
+    public static Node tail;
+    public static Node head;
+    public static int size;
+
+    public void addFirst(int data) {
+        Node newNode = new Node(data);
+        size++;
+        if (head == null) {
+            head = tail = newNode;
+            return;
+        }
+        newNode.next = head;
+        head.prev = newNode;
+        head = newNode;
+    }
+
+    public int removeFirst(int data) {
+        if (head == null) {
+            return Integer.MIN_VALUE;
+        }
+        size--;
+        if (head == tail) {
+            head = tail = null;
+            return Integer.MIN_VALUE;
+        }
+        int val = head.data;
+        head = head.next;
+        head.prev = null;
+        return val;
+    }
+
+    public void reverse() {
+        Node current = head;
+        Node prev = null;
+        Node nextNode = null;
+        while (current != null) {
+            nextNode = current.next;
+            current.next = prev;
+            current.prev = nextNode;
+            prev = current;
+            current = nextNode;
+        }
+        head = prev;
+    }
+
+    public void print() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + "<->");
+            temp = temp.next;
+        }
+        System.out.println("null");
+    }
+}
