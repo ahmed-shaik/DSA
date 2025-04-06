@@ -108,6 +108,39 @@ public class Stackss {
         pushAtBottom(s, top);
     }
 
+    public static void stockSpan(int[] stock, int[] span) {
+        Stack<Integer> s = new Stack<>();
+        s.push(0);
+        span[0] = 1;
+        for (int i = 1; i < stock.length; i++) {
+            while (!s.isEmpty() && stock[s.peek()] <= stock[i]) {
+                s.pop();
+            }
+            if (s.isEmpty()) {
+                span[i] = i + 1;
+            } else {
+                span[i] = i - s.peek();
+            }
+            s.push(i);
+        }
+    }
+
+    public static void nextGreaterElement(int[] arr, int[] greater) {
+        Stack<Integer> s = new Stack<>();
+
+        for (int i = arr.length - 1; i >= 0; i--) {
+            while (!s.isEmpty() && arr[i] > arr[s.peek()]) {
+                s.pop();
+            }
+            if (s.isEmpty()) {
+                greater[i] = -1;
+            } else {
+                greater[i] = arr[s.peek()];
+            }
+            s.push(i);
+        }
+    }
+
     public static void main(String[] args) {
         // stack - LIFO - Last In First Out
         // stack - push - pop - peek - isEmpty - size
@@ -124,10 +157,28 @@ public class Stackss {
 
         // System.out.println("Reversed String: " + reverseString("racecar"));
 
-        reverseStack(s);
-        while (!s.isEmpty()) {
-            System.out.println(s.peek());
-            s.pop();
+        // reverseStack(s);
+        // while (!s.isEmpty()) {
+        // System.out.println(s.peek());
+        // s.pop();
+        // }
+
+        // stock span problem - next greater element to left - next greater element to
+        // right
+        // int[] stock = { 100, 80, 60, 70, 60, 85, 100 };
+        // int[] span = new int[stock.length];
+        // stockSpan(stock, span);
+        // for (int i = 0; i < span.length; i++) {
+        // System.out.print(span[i] + " ");
+        // }
+
+        // next greater element
+        int arr[] = { 6, 8, 0, 1, 3 };
+        int greater[] = new int[arr.length];
+        nextGreaterElement(arr, greater);
+
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(greater[i] + " ");
         }
     }
 }
