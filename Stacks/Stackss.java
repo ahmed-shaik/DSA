@@ -141,6 +141,49 @@ public class Stackss {
         }
     }
 
+    public static boolean validParentheses(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (ch == '(' || ch == '{' || ch == '[') {
+                stack.push(ch);
+            } else {
+                if (stack.isEmpty())
+                    return false;
+                char top = stack.peek();
+                if ((ch == ')' && top == '(') || (ch == '}' && top == '{') || (ch == ']' && top == '[')) {
+                    stack.pop();
+                } else {
+                    return false;
+                }
+            }
+        }
+        return stack.isEmpty();
+    }
+
+    public static boolean duplicateParentheses(String s) {
+        Stack<Character> stack = new Stack<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (ch != ')') {
+                stack.push(ch);
+            } else {
+                int count = 0;
+                while (stack.peek() != '(') {
+                    stack.pop();
+                    count++;
+                }
+                if (count < 1) {
+                    return true;
+                } else {
+                    stack.pop();
+                }
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         // stack - LIFO - Last In First Out
         // stack - push - pop - peek - isEmpty - size
@@ -173,12 +216,19 @@ public class Stackss {
         // }
 
         // next greater element
-        int arr[] = { 6, 8, 0, 1, 3 };
-        int greater[] = new int[arr.length];
-        nextGreaterElement(arr, greater);
+        // int arr[] = { 6, 8, 0, 1, 3 };
+        // int greater[] = new int[arr.length];
+        // nextGreaterElement(arr, greater);
 
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(greater[i] + " ");
-        }
+        // for (int i = 0; i < arr.length; i++) {
+        // System.out.print(greater[i] + " ");
+        // }
+
+        // System.out.println(validParentheses("(){}[]"));
+        // System.out.println(validParentheses("({[()]})"));
+        // System.out.println(validParentheses("((((()"));
+
+        System.out.println(duplicateParentheses("((a+b))"));
+        System.out.println(duplicateParentheses("(a-b)"));
     }
 }
