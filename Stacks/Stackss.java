@@ -186,7 +186,7 @@ public class Stackss {
 
     public static void main(String[] args) {
         // stack - LIFO - Last In First Out
-        // stack - push - pop - peek - isEmpty - size
+        // stack - push  - pop - peek - isEmpty - size
         // Stack s = new Stack();
         Stack<Integer> s = new Stack<>();
         s.push(3);
