@@ -1,3 +1,7 @@
+package Array.Medium;
+
+import java.util.*;
+
 public class FruitIntoBaskets {
     class Solution {
         public int totalFruit(int[] fruits) {
