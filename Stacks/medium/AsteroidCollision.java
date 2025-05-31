@@ -1,4 +1,4 @@
-package Queues.Medium;
+package Stacks.medium;
 
 import java.util.ArrayList;
 
