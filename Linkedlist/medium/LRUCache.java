@@ -18,14 +18,14 @@ public class LRUCache {
         }
     }
 
-    class LRUCache {
+    class LRUCache1 {
 
         private int cap;
         private Map<Integer, Node> cache;
         private Node oldest;
         private Node latest;
 
-        public LRUCache(int capacity) {
+        public LRUCache1(int capacity) {
             this.cap = capacity;
             this.cache = new HashMap<>();
             this.oldest = new Node(0, 0);
@@ -75,3 +75,4 @@ public class LRUCache {
         }
     }
 }
+
