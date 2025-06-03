@@ -1,6 +1,7 @@
 package Greedy;
 
 import java.util.Arrays;
+// import java.util.Comparator;
 import java.util.Comparator;
 
 public class Greed {
@@ -19,11 +20,57 @@ public class Greed {
         return count;
     }
 
+    public static double fractionalKnapsack(int val[], int wt[], int W) {
+        double ratio[][] = new double[val.length][2];
+        for (int i = 0; i < val.length; i++) {
+            ratio[i][1] = (double) val[i] / wt[i];
+            ratio[i][0] = i;
+        }
+        Arrays.sort(ratio, Comparator.comparingDouble(o -> -o[1]));
+        int capacity = W;
+        int finalvalue = 0;
+        for (int i = ratio.length - 1; i >= 0; i--) {
+            int idx = (int) ratio[i][0];
+            if (capacity >= wt[idx]) {
+                finalvalue += val[idx];
+                capacity -= wt[idx];
+            } else {
+                finalvalue += (ratio[i][1] * capacity);
+                capacity = 0;
+                break;
+            }
+
+        }
+        return finalvalue;
+    }
+
+    public static int MinimumAbsoluteDifferencePairs(int a[], int b[]) {
+        Arrays.sort(a);
+        Arrays.sort(b);
+        int min = 0;
+        for (int i = 0; i < a.length; i++) {
+            min += Math.abs(a[i] - b[i]);
+        }
+        return min;
+    }
+
     public static void main(String[] args) {
         // Greedy algorithms is the problem solving technique where we make the
         // locally optimum choice at each stage & hope to achieve a global optimum.
-        int start[] = { 1, 3, 0, 5, 8, 5 };
-        int end[] = { 2, 4, 6, 7, 9, 9 };
-        System.out.println("\nThere are total of " + maxActivities(start, end) + " activities selected.");
+
+        // int start[] = { 1, 3, 0, 5, 8, 5 };
+        // int end[] = { 2, 4, 6, 7, 9, 9 };
+        // System.out.println("\nThere are total of " + maxActivities(start, end) + "
+        // activities selected.");
+
+        // int val[] = { 60, 100, 120 };
+        // int wt[] = { 10, 20, 30 };
+        // int W = 50;
+        // System.out.println("\nMaximum value in Knapsack = " + fractionalKnapsack(val,
+        // wt, W));
+
+        int a[] = { 4, 1, 8, 7 };
+        int b[] = { 2, 3, 6, 5 };
+        System.out.println("\nMinimum Absolute Difference Pairs = " + MinimumAbsoluteDifferencePairs(a, b));
     }
 }
