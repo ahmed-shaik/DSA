@@ -1,5 +1,6 @@
 package Greedy;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 // import java.util.Comparator;
 import java.util.Comparator;
@@ -54,6 +55,35 @@ public class Greed {
         return min;
     }
 
+    public static int MaximumLengthofPairChain(int[][] pairs) {
+        Arrays.sort(pairs, Comparator.comparingDouble(o -> o[1]));
+        int last = pairs[0][1], count = 1;
+        for (int i = 1; i < pairs.length; i++) {
+            if (pairs[i][0] > last) {
+                last = pairs[i][1];
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static int indianCoinChange(int[] coins, int amount) {
+        Arrays.sort(coins);
+        int count = 0;
+        ArrayList<Integer> usedCoins = new ArrayList<>();
+        for (int i = coins.length - 1; i >= 0; i--) {
+            while (amount >= coins[i]) {
+                amount -= coins[i];
+                count++;
+                usedCoins.add(coins[i]);
+            }
+        }
+        for (int i = 0; i < usedCoins.size(); i++) {
+            System.out.print(usedCoins.get(i) + " ");
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
         // Greedy algorithms is the problem solving technique where we make the
         // locally optimum choice at each stage & hope to achieve a global optimum.
@@ -69,8 +99,17 @@ public class Greed {
         // System.out.println("\nMaximum value in Knapsack = " + fractionalKnapsack(val,
         // wt, W));
 
-        int a[] = { 4, 1, 8, 7 };
-        int b[] = { 2, 3, 6, 5 };
-        System.out.println("\nMinimum Absolute Difference Pairs = " + MinimumAbsoluteDifferencePairs(a, b));
+        // int a[] = { 4, 1, 8, 7 };
+        // int b[] = { 2, 3, 6, 5 };
+        // System.out.println("\nMinimum Absolute Difference Pairs = " +
+        // MinimumAbsoluteDifferencePairs(a, b));
+
+        // int pairs[][] = { { 1, 2 }, { 7, 8 }, { 4, 5 } };
+        // System.out.println("\nMaximum Length of Pair Chain = " +
+        // MaximumLengthofPairChain(pairs));
+
+        int coins[] = { 1, 2, 5, 10, 20, 50, 100, 500, 2000 };
+        int amount = 590;
+        System.out.println("\nMinimum number of coins required = " + indianCoinChange(coins, amount));
     }
 }
