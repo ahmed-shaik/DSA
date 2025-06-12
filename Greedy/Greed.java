@@ -2,6 +2,7 @@ package Greedy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 // import java.util.Comparator;
 import java.util.Comparator;
 
@@ -84,6 +85,70 @@ public class Greed {
         return count;
     }
 
+    static class Job {
+        int profit;
+        int deadline;
+        int id;
+
+        Job(int i, int profit, int deadline) {
+            this.id = i;
+            this.profit = profit;
+            this.deadline = deadline;
+        }
+    }
+
+    public static int jobScheduling(int[][] jobsinfo) {
+        ArrayList<Job> jobs = new ArrayList<>();
+        for (int i = 0; i < jobsinfo.length; i++) {
+            jobs.add(new Job(i, jobsinfo[i][0], jobsinfo[i][1]));
+        }
+        Collections.sort(jobs, (a, b) -> b.profit - a.profit);
+        ArrayList<Integer> result = new ArrayList<>();
+        int time = 0;
+        for (int i = 0; i < jobs.size(); i++) {
+            if (jobs.get(i).deadline > time) {
+                result.add(jobs.get(i).id);
+                time++;
+            }
+        }
+        for (int i = 0; i < result.size(); i++) {
+            System.out.print(result.get(i) + " ");
+        }
+        System.out.println();
+        return result.size();
+    }
+
+    public static int chocolProblem(Integer[] cutHor, Integer[] cutVer) {
+        Arrays.sort(cutVer, Collections.reverseOrder());
+        Arrays.sort(cutHor, Collections.reverseOrder());
+
+        int h = 0, v = 0, hp = 1, vp = 1;
+        int cost = 0;
+        while (h < cutHor.length && v < cutVer.length) {
+            if (cutVer[v] <= cutHor[h]) {
+                cost += (vp * cutHor[h]);
+                h++;
+                hp++;
+
+            } else {
+                cost += (hp * cutVer[v]);
+                v++;
+                vp++;
+            }
+        }
+        while (h < cutHor.length) {
+            cost += (vp * cutHor[h]);
+            h++;
+            hp++;
+        }
+        while (v < cutVer.length) {
+            cost += (hp * cutVer[v]);
+            v++;
+            vp++;
+        }
+        return cost;
+    }
+
     public static void main(String[] args) {
         // Greedy algorithms is the problem solving technique where we make the
         // locally optimum choice at each stage & hope to achieve a global optimum.
@@ -108,8 +173,16 @@ public class Greed {
         // System.out.println("\nMaximum Length of Pair Chain = " +
         // MaximumLengthofPairChain(pairs));
 
-        int coins[] = { 1, 2, 5, 10, 20, 50, 100, 500, 2000 };
-        int amount = 590;
-        System.out.println("\nMinimum number of coins required = " + indianCoinChange(coins, amount));
+        // int coins[] = { 1, 2, 5, 10, 20, 50, 100, 500, 2000 };
+        // int amount = 590;
+        // System.out.println("\nMinimum number of coins required = " +
+        // indianCoinChange(coins, amount));
+
+        // int jobsinfo[][] = { { 4, 20 }, { 1, 10 }, { 1, 40 }, { 1, 30 } };
+        // System.out.println("Max Jobs: " + jobScheduling(jobsinfo));
+
+        Integer[] cutVer = { 2, 1, 3, 1, 4 };
+        Integer[] cutHor = { 4, 1, 2 };
+        System.out.println("Min cost of cuts: " + chocolProblem(cutHor, cutVer));
     }
 }
