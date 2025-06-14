@@ -39,23 +39,28 @@ public class BinaryTreePostorderTraversal {
         }
     }
 
-    public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> list = new ArrayList<>();
-        if (root == null) {
+    class Solution1 {
+        public List<Integer> inorderTraversal(TreeNode root) {
+            List<Integer> list = new ArrayList<>();
+            if (root == null) {
+                return list;
+            }
+            Stack<TreeNode> s = new Stack<>();
+            TreeNode node = root;
+            while (true) {
+                if (node != null) {
+                    s.push(node);
+                    node = node.left;
+                } else {
+                    if (s.isEmpty()) {
+                        break;
+                    }
+                    node = s.pop();
+                    list.add(node.val);
+                    node = node.right;
+                }
+            }
             return list;
         }
-        Stack<TreeNode> s = new Stack<>();
-        s.push(root);
-        while (!s.isEmpty()) {
-            TreeNode curr = s.pop();
-            list.add(curr.val);
-            if (curr.right != null) {
-                s.push(curr.right);
-            }
-            if (curr.left != null) {
-                s.push(curr.left);
-            }
-        }
-        return list;
     }
 }
