@@ -3,7 +3,7 @@ package BinaryTree.Easy;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PreOrder {
+public class BinaryTreePreOrderTraversal {
     /**
      * Definition for a binary tree node.
      */
