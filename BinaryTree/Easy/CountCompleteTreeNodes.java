@@ -1,5 +1,7 @@
 package BinaryTree.Easy;
 
+import BinaryTree.Easy.BinaryTreePreOrderTraversal.TreeNode;
+
 public class CountCompleteTreeNodes {
     /**
      * Definition for a binary tree node.
