@@ -100,6 +100,15 @@ public class BinaryTrees {
             int rh = countNode(root.right);
             return 1 + lh + rh;
         }
+
+        public static int sumOfNodes(Node root) {
+            if (root == null) {
+                return 0;
+            }
+            int lh = sumOfNodes(root.left);
+            int rh = sumOfNodes(root.right);
+            return root.data + lh + rh;
+        }
     }
 
     public static void main(String[] args) {
@@ -134,5 +143,8 @@ public class BinaryTrees {
 
         // Count no. of nodes in the tree
         System.out.println("No. of nodes:" + tree.countNode(root));
+
+        // sum of all nodes in the tree
+        System.out.println("Sum of all nodes: " + tree.sumOfNodes(root));
     }
 }
