@@ -109,6 +109,38 @@ public class BinaryTrees {
             int rh = sumOfNodes(root.right);
             return root.data + lh + rh;
         }
+
+        public static int diameter1(Node root) {
+            if (root == null) {
+                return 0;
+            }
+            int ld = diameter1(root.left);
+            int rd = diameter1(root.right);
+            int lh = height(root.left);
+            int rh = height(root.right);
+            return Math.max(Math.max(ld, rd), lh + rh + 1);
+        }
+
+        static class Info {
+            int h;
+            int d;
+
+            Info(int h, int d) {
+                this.h = h;
+                this.d = d;
+            }
+        }
+
+        public static Info diameter2(Node root) {
+            if (root == null) {
+                return new Info(0, 0);
+            }
+            Info leftInfo = diameter2(root.left);
+            Info rightInfo = diameter2(root.right);
+            int height = Math.max(leftInfo.h, rightInfo.h) + 1;
+            int diameter = Math.max(Math.max(leftInfo.d, rightInfo.d), leftInfo.h + rightInfo.h + 1);
+            return new Info(height, diameter);
+        }
     }
 
     public static void main(String[] args) {
@@ -146,5 +178,10 @@ public class BinaryTrees {
 
         // sum of all nodes in the tree
         System.out.println("Sum of all nodes: " + tree.sumOfNodes(root));
+
+        // diameter of the tree
+        // The diameter of a tree is the longest path between any two leaves in the
+        // tree.
+        System.out.println("Diameter of the tree: " + tree.diameter1(root));
     }
 }
