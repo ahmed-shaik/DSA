@@ -82,6 +82,15 @@ public class BinaryTrees {
                 }
             }
         }
+
+        public static int height(Node root) {
+            if (root == null) {
+                return 0;
+            }
+            int lh = height(root.left);
+            int rh = height(root.right);
+            return Math.max(lh, rh) + 1;
+        }
     }
 
     public static void main(String[] args) {
@@ -110,5 +119,8 @@ public class BinaryTrees {
         // level order traversal
         System.out.println("levelorder: ");
         tree.levelOrder(root);
+
+        // clalculate height of the tree
+        System.out.println("Height of the tree: " + tree.height(root));
     }
 }
