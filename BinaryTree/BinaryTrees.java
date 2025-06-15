@@ -141,6 +141,31 @@ public class BinaryTrees {
             int diameter = Math.max(Math.max(leftInfo.d, rightInfo.d), leftInfo.h + rightInfo.h + 1);
             return new Info(height, diameter);
         }
+
+        public static boolean isSubtree(Node root1, Node root2) {
+            if (root1 == null) {
+                return false;
+            }
+            // If root1's value matches root2's value, check if the two trees are identical
+            if (root1.data == root2.data) {
+                if (isIdentical(root1, root2)) {
+                    return true;
+                }
+            }
+            // Otherwise, check the left and right subtrees of root1
+            return isSubtree(root1.left, root2) || isSubtree(root1.right, root2);
+        }
+
+        // Helper function to check if two trees are identical
+        public static boolean isIdentical(Node root1, Node root2) {
+            if (root1 == null && root2 == null) {
+                return true;
+            }
+            if (root1 == null || root2 == null || root1.data != root2.data) {
+                return false;
+            }
+            return isIdentical(root1.left, root2.left) && isIdentical(root1.right, root2.right);
+        }
     }
 
     public static void main(String[] args) {
@@ -183,5 +208,13 @@ public class BinaryTrees {
         // The diameter of a tree is the longest path between any two leaves in the
         // tree.
         System.out.println("Diameter of the tree: " + tree.diameter1(root));
+
+        // subtree of another tree
+        int subRootNodes[] = { 2, 4, -1, -1, 5, -1, -1 };
+        Node subRoot = tree.buildTree(subRootNodes);
+
+        // Check if subRoot is a subtree of root
+        boolean result = tree.isSubtree(root, subRoot);
+        System.out.println("Is subRoot a subtree of root? " + result);
     }
 }
