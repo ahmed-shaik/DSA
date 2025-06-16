@@ -1,5 +1,6 @@
 package BinaryTree;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -166,6 +167,75 @@ public class BinaryTrees {
             }
             return isIdentical(root1.left, root2.left) && isIdentical(root1.right, root2.right);
         }
+
+        static class Infoo {
+            int hd; // horizontal distance
+            Node node;
+
+            Infoo(int hd, Node node) {
+                this.hd = hd;
+                this.node = node;
+            }
+        }
+
+        public static void topView(Node root) {
+            Queue<Infoo> q = new LinkedList<>();
+            HashMap<Integer, Node> map = new HashMap<>();
+            int min = 0, max = 0;
+            q.add(new Infoo(0, root));
+            map.put(0, root);
+            while (!q.isEmpty()) {
+                int n = q.size();
+                for (int i = 0; i < n; i++) {
+                    Infoo curr = q.remove();
+                    if (!map.containsKey(curr.hd)) {
+                        map.put(curr.hd, curr.node);
+                    }
+                    if (curr.node.left != null) {
+                        q.add(new Infoo(curr.hd - 1, curr.node.left));
+                        min = Math.min(min, curr.hd - 1);
+                    }
+                    if (curr.node.right != null) {
+                        q.add(new Infoo(curr.hd + 1, curr.node.right));
+                        max = Math.max(max, curr.hd + 1);
+                    }
+                }
+            }
+            for (int i = min; i <= max; i++) {
+                if (map.containsKey(i)) {
+                    System.out.print(map.get(i).data + " ");
+                }
+            }
+        }
+
+        public static void bottomView(Node root) {
+            Queue<Infoo> q = new LinkedList<>();
+            HashMap<Integer, Node> map = new HashMap<>();
+            int min = 0, max = 0;
+            q.add(new Infoo(0, root));
+            map.put(0, root);
+            while (!q.isEmpty()) {
+                int n = q.size();
+                for (int i = 0; i < n; i++) {
+                    Infoo curr = q.remove();
+                    map.put(curr.hd, curr.node); // Update the node at this horizontal distance
+                    if (curr.node.left != null) {
+                        q.add(new Infoo(curr.hd - 1, curr.node.left));
+                        min = Math.min(min, curr.hd - 1);
+                    }
+                    if (curr.node.right != null) {
+                        q.add(new Infoo(curr.hd + 1, curr.node.right));
+                        max = Math.max(max, curr.hd + 1);
+                    }
+                }
+            }
+            for (int i = min; i <= max; i++) {
+                if (map.containsKey(i)) {
+                    System.out.print(map.get(i).data + " ");
+                }
+            }
+
+        }
     }
 
     public static void main(String[] args) {
@@ -211,10 +281,14 @@ public class BinaryTrees {
 
         // subtree of another tree
         int subRootNodes[] = { 2, 4, -1, -1, 5, -1, -1 };
-        Node subRoot = tree.buildTree(subRootNodes);
+        // Node subRoot = tree.buildTree(subRootNodes);
 
         // Check if subRoot is a subtree of root
-        boolean result = tree.isSubtree(root, subRoot);
-        System.out.println("Is subRoot a subtree of root? " + result);
+        // boolean result = tree.isSubtree(root, subRoot);
+        // System.out.println("Is subRoot a subtree of root? " + result);
+
+        // Top view
+        System.out.println("Top view of the tree: ");
+        tree.topView(root);
     }
 }
