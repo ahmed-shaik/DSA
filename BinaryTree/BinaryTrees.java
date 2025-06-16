@@ -1,5 +1,6 @@
 package BinaryTree;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -234,7 +235,64 @@ public class BinaryTrees {
                     System.out.print(map.get(i).data + " ");
                 }
             }
+        }
 
+        public static void kthLevel(Node root, int k, int i) {
+            if (root == null) {
+                return;
+            }
+            if (k == i) {
+                System.out.print(root.data + " ");
+                return;
+            }
+            kthLevel(root.left, k, i + 1);
+            kthLevel(root.right, k, i + 1);
+        }
+
+        public static Node lowestCommonAncestor(Node root, int n1, int n2) {
+            ArrayList<Node> l1 = new ArrayList<>();
+            ArrayList<Node> l2 = new ArrayList<>();
+            getPath(root, n1, l1);
+            getPath(root, n2, l2);
+            int i = 0;
+            for (; i < l1.size() && i < l2.size(); i++) {
+                if (l1.get(i) != l2.get(i)) {
+                    break;
+                }
+            }
+            return l1.get(i - 1);
+        }
+
+        public static boolean getPath(Node root, int n1, ArrayList<Node> l1) {
+            if (root == null) {
+                return false;
+            }
+            l1.add(root);
+            if (root.data == n1) {
+                return true;
+            }
+            boolean left = getPath(root.left, n1, l1);
+            boolean right = getPath(root.right, n1, l1);
+            if (left || right) {
+                return true;
+            }
+            l1.remove(l1.size() - 1);
+            return false;
+        }
+
+        public static Node lca2(Node root, Node n1, Node n2) {
+            if (root == null || root == n1 || root == n2) {
+                return root;
+            }
+            Node left = lca2(root.left, n1, n2);
+            Node right = lca2(root.right, n1, n2);
+            if (right == null) {
+                return right;
+            }
+            if (left == null) {
+                return left;
+            }
+            return root;
         }
     }
 
@@ -290,5 +348,28 @@ public class BinaryTrees {
         // Top view
         System.out.println("Top view of the tree: ");
         tree.topView(root);
+        System.out.println();
+
+        Node root2 = new Node(1);
+        root2.left = new Node(2);
+        root2.right = new Node(3);
+        root2.left.left = new Node(4);
+        root2.left.right = new Node(5);
+        root2.right.left = new Node(6);
+        root2.right.right = new Node(7);
+        /*
+         * 1
+         * / \
+         * 2 3
+         * / \ / \
+         * 4 5 6 7
+         */
+        // Print kth level
+        System.out.print("Elements: [");
+        tree.kthLevel(root2, 2, 1);
+        System.out.println("]");
+
+        // lowest comon ancestor
+        System.out.println("lca: " + tree.lowestCommonAncestor(root2, 7, 6).data);
     }
 }
