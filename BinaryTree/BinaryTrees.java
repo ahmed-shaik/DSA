@@ -287,12 +287,90 @@ public class BinaryTrees {
             Node left = lca2(root.left, n1, n2);
             Node right = lca2(root.right, n1, n2);
             if (right == null) {
-                return right;
-            }
-            if (left == null) {
                 return left;
             }
+            if (left == null) {
+                return right;
+            }
             return root;
+        }
+
+        public static int minDist(Node root, int n1, int n2) {
+            Node lca = lowestCommonAncestor(root, n1, n2);
+            return distanceFromLCA(lca, n1) + distanceFromLCA(lca, n2);
+        }
+
+        public static int distanceFromLCA(Node root, int n1) {
+            if (root == null) {
+                return -1;
+            }
+            if (root.data == n1) {
+                return 0;
+            }
+            int left = distanceFromLCA(root.left, n1);
+            int right = distanceFromLCA(root.right, n1);
+            if (left == -1 && right == -1) {
+                return -1;
+            } else if (left == -1) {
+                return right + 1;
+            } else {
+                return left + 1;
+            }
+        }
+
+        public static Node KthAncestor(Node root, int n1, int k) {
+            ArrayList<Node> list = new ArrayList<>();
+            findAncestors(root, n1, list);
+            return list.get(list.size() - 1 - k);
+        }
+
+        public static boolean findAncestors(Node root, int n1, ArrayList<Node> list) {
+            if (root == null) {
+                return false;
+            }
+            list.add(root);
+            if (root.data == n1) {
+                return true;
+            }
+            boolean left = findAncestors(root.left, n1, list);
+            boolean right = findAncestors(root.right, n1, list);
+            if (left || right) {
+                return true;
+            }
+            list.remove(list.size() - 1);
+            return false;
+        }
+
+        public static int KthAncestor2(Node root, int n, int k) {
+            if (root == null) {
+                return -1;
+            }
+            if (root.data == n) {
+                return 0;
+            }
+            int left = KthAncestor2(root.left, n, k);
+            int right = KthAncestor2(root.right, n, k);
+            if (left == -1 && right == -1) {
+                return -1;
+            }
+            int max = Math.max(left, right);
+            if (max + 1 == k) {
+                System.out.println("Kth Ancestor of " + n + " is: " + root.data);
+            }
+            return max + 1;
+        }
+
+        public static int sumTree(Node root) {
+            if (root == null) {
+                return 0;
+            }
+            int left = sumTree(root.left);
+            int right = sumTree(root.right);
+            int data = root.data;
+            int nl = root.left == null ? 0 : root.left.data;
+            int nr = root.right == null ? 0 : root.right.data;
+            root.data = left + right + nl + nr;
+            return data;
         }
     }
 
@@ -371,5 +449,18 @@ public class BinaryTrees {
 
         // lowest comon ancestor
         System.out.println("lca: " + tree.lowestCommonAncestor(root2, 7, 6).data);
+
+        // /min distance
+        System.out.println("Min dist:" + tree.minDist(root2, 4, 5));
+
+        // kth ancestor
+        System.out.println("kth Ancestor: " + tree.KthAncestor(root2, 6, 2).data);
+        // kth ancestor 2
+        System.out.print("Kth Ancestor 2: ");
+        tree.KthAncestor2(root2, 5, 2);
+
+        // Sum tree
+        tree.sumTree(root2);
+        tree.levelOrder(root2);
     }
 }
