@@ -447,7 +447,7 @@ public class BinaryTrees {
         tree.kthLevel(root2, 2, 1);
         System.out.println("]");
 
-        // lowest comon ancestor
+        // lowest comon ance stor
         System.out.println("lca: " + tree.lowestCommonAncestor(root2, 7, 6).data);
 
         // /min distance
