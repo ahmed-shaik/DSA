@@ -3,6 +3,16 @@ package Graphs;
 import java.util.*;
 
 public class Graph {
+    static class Pair {
+        int node;
+        int parent;
+
+        Pair(int node, int parent) {
+            this.node = node;
+            this.parent = parent;
+        }
+    }
+
     public static ArrayList<Integer> bfsOfGraph(int v, ArrayList<ArrayList<Integer>> adj) {
         // Breadth First Search (BFS) is an algorithm for traversing or searching
         // tree or graph data structures. It starts at the root (or an arbitrary node)
@@ -41,6 +51,64 @@ public class Graph {
                 dfsHelper(adj, dfs, el, vis);
             }
         }
+    }
+
+    public static boolean isCycleInUndirectedGraph(ArrayList<ArrayList<Integer>> adj, int v) {
+        boolean vis[] = new boolean[v];
+        for (int i = 0; i < v; i++) {
+            if (!vis[i]) {
+                if (isCycleHelper(adj, vis, i)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean isCycleHelper(ArrayList<ArrayList<Integer>> adj, boolean[] vis, int curr) {
+        vis[curr] = true;
+        Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(curr, -1));
+        while (!q.isEmpty()) {
+            Pair p = q.remove();
+            int node = p.node;
+            int parent = p.parent;
+            for (int el : adj.get(node)) {
+                if (!vis[el]) {
+                    vis[el] = true;
+                    q.add(new Pair(el, node));
+                } else if (parent != el) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean isCycleInUndirectedGraphUsingDfs(ArrayList<ArrayList<Integer>> adj, int v) {
+        boolean vis[] = new boolean[v];
+        for (int i = 0; i < v; i++) {
+            if (!vis[i]) {
+                if (isCycleHelperDfs(adj, vis, i, -1)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean isCycleHelperDfs(ArrayList<ArrayList<Integer>> adj, boolean[] vis, int curr, int p) {
+        vis[curr] = true;
+        for (int el : adj.get(curr)) {
+            if (!vis[el]) {
+                if (isCycleHelperDfs(adj, vis, el, curr)) {
+                    return true;
+                }
+            } else if (p != el) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void main(String[] args) {
@@ -96,5 +164,37 @@ public class Graph {
         ArrayList<Integer> dfsResult = dfsOfGraph(adj, v);
         System.out.println("DFS of the graph: " + dfsResult);
 
+        // Is cycle in undirected graph
+
+        ArrayList<ArrayList<Integer>> adj1 = new ArrayList<>();
+
+        // Initialize adjacency list
+        for (int i = 0; i < 6; i++) {
+            adj1.add(new ArrayList<>());
+        }
+        /*
+         * 0 - 1
+         * | |
+         * 2 - 3
+         * | |
+         * 4 - 5
+         * 
+         */
+
+        // Adding edges (creating the graph with a cycle)
+        adj1.get(0).add(1);
+        adj1.get(1).add(0);
+        adj1.get(1).add(3);
+        adj1.get(3).add(1);
+        adj1.get(3).add(2);
+        adj1.get(2).add(3);
+        adj1.get(2).add(0);
+        adj1.get(0).add(2);
+        adj1.get(5).add(4);
+        adj1.get(4).add(5);
+
+        System.out.println("Is cycle in undirected graph: " + isCycleInUndirectedGraph(adj1, v));
+
+        System.out.println("Is cycle in undirected graph: " + isCycleInUndirectedGraphUsingDfs(adj1, v));
     }
 }
