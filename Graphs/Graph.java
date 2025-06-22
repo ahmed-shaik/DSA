@@ -111,6 +111,59 @@ public class Graph {
         return false;
     }
 
+    public static ArrayList<Integer> topologicalSort(int v, ArrayList<ArrayList<Integer>> adj) {
+        boolean vis[] = new boolean[v];
+        ArrayList<Integer> topo = new ArrayList<>();
+        Stack<Integer> st = new Stack<>();
+        for (int i = 0; i < v; i++) {
+            if (!vis[i]) {
+                dfsForTopoSort(i, vis, st, adj);
+            }
+        }
+        while (!st.isEmpty()) {
+            topo.add(st.pop());
+        }
+        return topo;
+    }
+
+    public static void dfsForTopoSort(int node, boolean vis[], Stack<Integer> st, ArrayList<ArrayList<Integer>> adj) {
+        vis[node] = true;
+        for (int el : adj.get(node)) {
+            if (!vis[el]) {
+                dfsForTopoSort(el, vis, st, adj);
+            }
+        }
+        st.push(node);
+    }
+
+    public static ArrayList<Integer> topologicalSortUsingBfs(int v, ArrayList<ArrayList<Integer>> adj) {
+        // khans algorithm
+        int indegree[] = new int[v];
+        for (int i = 0; i < v; i++) {
+            for (int el : adj.get(i)) {
+                indegree[el]++;
+            }
+        }
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < v; i++) {
+            if (indegree[i] == 0) {
+                q.add(i);
+            }
+        }
+        ArrayList<Integer> topo = new ArrayList<>();
+        while (!q.isEmpty()) {
+            int node = q.remove();
+            topo.add(node);
+            for (int el : adj.get(node)) {
+                indegree[el]--;
+                if (indegree[el] == 0) {
+                    q.add(el);
+                }
+            }
+        }
+        return topo;
+    }
+
     public static void main(String[] args) {
         // Graph is a network of nodes and edges
         // Stroing a graph in Java can be done using an
@@ -196,5 +249,7 @@ public class Graph {
         System.out.println("Is cycle in undirected graph: " + isCycleInUndirectedGraph(adj1, v));
 
         System.out.println("Is cycle in undirected graph: " + isCycleInUndirectedGraphUsingDfs(adj1, v));
+
+        System.out.println("Topo sort:" + topologicalSort(6, adj1));
     }
 }
