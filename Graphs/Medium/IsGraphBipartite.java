@@ -1,5 +1,7 @@
 package Graphs.Medium;
 
+import java.util.*;
+
 public class IsGraphBipartite {
 
     class Solution {
