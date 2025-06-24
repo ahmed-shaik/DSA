@@ -1,5 +1,6 @@
 package Graphs;
 
+import java.nio.file.Path;
 import java.util.*;
 
 public class Graph {
@@ -162,6 +163,66 @@ public class Graph {
             }
         }
         return topo;
+    }
+
+    static class Pair1 {
+        int node;
+        int weight;
+
+        Pair1(int node, int weight) {
+            this.node = node;
+            this.weight = weight;
+        }
+    }
+
+    public static void dfsForShortestPath(int node, boolean vis[], Stack<Integer> st, ArrayList<ArrayList<Pair1>> adj) {
+        vis[node] = true;
+        for (Pair1 el : adj.get(node)) {
+            if (!vis[el.node]) {
+                dfsForShortestPath(el.node, vis, st, adj);
+            }
+        }
+        st.push(node);
+    }
+
+    public static int[] shortestPathinDirectedAcyclicGraph(int n, int m, int[][] edges) {
+        ArrayList<ArrayList<Pair1>> adj = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            adj.add(new ArrayList<>());
+        }
+        for (int i = 0; i < m; i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            int wt = edges[i][2];
+            adj.get(u).add(new Pair1(v, wt));
+        }
+        boolean vis[] = new boolean[n];
+        Stack<Integer> st = new Stack<>();
+        for (int i = 0; i < n; i++) {
+            if (!vis[i]) {
+                dfsForShortestPath(i, vis, st, adj);
+            }
+        }
+        int dist[] = new int[n];
+        for (int i = 0; i < n; i++) {
+            dist[i] = Integer.MAX_VALUE;
+        }
+        while (!st.isEmpty()) {
+            int node = st.pop();
+            for (int i = 0; i < adj.get(node).size(); i++) {
+                int v = adj.get(node).get(i).node;
+                int wt = adj.get(node).get(i).weight;
+                if (dist[node] != Integer.MAX_VALUE && dist[node] + wt < dist[v]) {
+                    dist[v] = dist[node] + wt;
+                }
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            if (dist[i] == Integer.MAX_VALUE) {
+                dist[i] = -1; // If no path exists, set distance to -1
+            }
+        }
+        return dist;
     }
 
     public static void main(String[] args) {
