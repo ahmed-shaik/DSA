@@ -1,6 +1,5 @@
 package Graphs;
 
-import java.nio.file.Path;
 import java.util.*;
 
 public class Graph {
@@ -207,6 +206,7 @@ public class Graph {
         for (int i = 0; i < n; i++) {
             dist[i] = Integer.MAX_VALUE;
         }
+        dist[0] = 0; // Assuming the source node is 0
         while (!st.isEmpty()) {
             int node = st.pop();
             for (int i = 0; i < adj.get(node).size(); i++) {
@@ -220,6 +220,63 @@ public class Graph {
         for (int i = 0; i < n; i++) {
             if (dist[i] == Integer.MAX_VALUE) {
                 dist[i] = -1; // If no path exists, set distance to -1
+            }
+        }
+        return dist;
+    }
+
+    static class Edge {
+        int src;
+        int dest;
+        int wt;
+
+        Edge(int src, int dest, int wt) {
+            this.src = src;
+            this.dest = dest;
+            this.wt = wt;
+        }
+    }
+
+    static class Pair2 implements Comparable<Pair2> {
+        int n;
+        int path;
+
+        Pair2(int n, int path) {
+            this.n = n;
+            this.path = path;
+        }
+
+        @Override
+        public int compareTo(Pair2 p2) {
+            return this.path - p2.path;
+        }
+    }
+
+    public static int[] dijkistras(ArrayList<Edge> graph[], int src) {
+        int dist[] = new int[graph.length];
+
+        // Initialize distances
+        for (int i = 0; i < dist.length; i++) {
+            dist[i] = Integer.MAX_VALUE;
+        }
+        dist[src] = 0;
+
+        // Priority Queue to store nodes and their distances
+        PriorityQueue<Pair2> pq = new PriorityQueue<>();
+        pq.add(new Pair2(src, 0));
+
+        while (!pq.isEmpty()) {
+            Pair2 p = pq.remove();
+
+            // Relaxation step: Update distances for all adjacent vertices
+            for (int i = 0; i < graph[p.n].size(); i++) {
+                Edge e = graph[p.n].get(i);
+
+                // Check if the new path is shorter
+                if (dist[p.n] + e.wt < dist[e.dest]) {
+                    dist[e.dest] = dist[p.n] + e.wt;
+                    pq.add(new Pair2(e.dest, dist[e.dest]));
+                }
             }
         }
         return dist;
