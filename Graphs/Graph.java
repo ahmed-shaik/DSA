@@ -282,6 +282,27 @@ public class Graph {
         return dist;
     }
 
+    public static void bellmanFord(ArrayList<Edge> graph[], int src) {
+        int dist[] = new int[graph.length];
+        for (int i = 0; i < dist.length; i++) {
+            dist[i] = Integer.MAX_VALUE;
+        }
+        dist[src] = 0;
+        int V = graph.length;
+        for (int i = 0; i < V - 1; i++) {
+            for (int j = 0; j < graph.length; j++) {
+                for (Edge e : graph[j]) {
+                    int u = e.src;
+                    int v = e.dest;
+                    int w = e.wt;
+                    if (dist[j] != Integer.MAX_VALUE && dist[u] + w < dist[v]) {
+                        dist[v] = dist[u] + w;
+                    }
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         // Graph is a network of nodes and edges
         // Stroing a graph in Java can be done using an
