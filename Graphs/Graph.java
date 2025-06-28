@@ -303,6 +303,149 @@ public class Graph {
         }
     }
 
+    static class Pair3 implements Comparable<Pair3> {
+        int v;
+        int cost;
+
+        Pair3(int v, int cost) {
+            this.v = v;
+            this.cost = cost;
+        }
+
+        @Override
+        public int compareTo(Pair3 p2) {
+            return this.cost - p2.cost;
+        }
+    }
+
+    public static void prims(ArrayList<Edge> graph[]) {
+        boolean vis[] = new boolean[graph.length];
+        PriorityQueue<Pair3> pq = new PriorityQueue<>();
+        pq.add(new Pair3(0, 0)); // Start from the first node
+        int totalCost = 0;
+        while (!pq.isEmpty()) {
+            Pair3 p = pq.remove();
+            int node = p.v;
+            int cost = p.cost;
+            if (!vis[node]) {
+                vis[node] = true;
+                totalCost += cost;
+                for (Edge e : graph[node]) {
+                    if (!vis[e.dest]) {
+                        pq.add(new Pair3(e.dest, e.wt));
+                    }
+                }
+            }
+        }
+        System.out.println("Total cost of Minimum Spanning Tree: " + totalCost);
+    }
+
+    static int n = 7;
+    static int par[] = new int[n];
+    static int rank[] = new int[n];
+
+    public static void init() {
+        for (int i = 0; i < n; i++) {
+            par[i] = i; // Initially, each element is its own parent
+            rank[i] = 0; // Initial rank is 0
+        }
+    }
+
+    public static int find(int x) {
+        if (par[x] == x) {
+            return x; // If x is its own parent, return x
+        }
+        return par[x] = find(par[x]);
+    }
+
+    public static void union(int a, int b) {
+        int rootA = find(a);
+        int rootB = find(b);
+        if (rank[rootA] == rank[rootB]) {
+            par[b] = rootA; // Make a the parent of b
+            rank[rootA]++; // Increment the rank of a
+        } else if (rank[rootA] < rank[rootB]) {
+            par[rootA] = rootB; // Make b the parent of a
+        } else {
+            par[rootB] = rootA; // Make a the parent of b
+        }
+    }
+
+    // kruskal's algorithm
+    class Solution {
+        static int spanningTree(int V, int E, List<List<int[]>> adj) {
+            // Code Here.
+            int[] rank = new int[V]; // Rank for union-find
+            int[] par = new int[V]; // Parent array for union-find
+            for (int i = 0; i < V; i++) {
+                par[i] = i; // Initially, each node is its own parent
+                rank[i] = 0; // Initially, each node has rank 0
+            }
+
+            // Step 1: Collect all edges from adjacency list
+            List<int[]> edges = new ArrayList<>();
+            for (int u = 0; u < V; u++) {
+                for (int[] neighbor : adj.get(u)) {
+                    int v = neighbor[0]; // The other node in the edge
+                    int weight = neighbor[1]; // The weight of the edge
+                    edges.add(new int[] { u, v, weight }); // Add edge (u, v, weight)
+                }
+            }
+
+            // Step 2: Sort edges by weight
+            edges.sort(Comparator.comparingInt(a -> a[2])); // Sort by edge weight
+
+            int mstWeight = 0; // Total weight of the MST
+            int edgesUsed = 0; // Count of edges used in MST
+
+            // Step 3: Process each edge
+            for (int[] edge : edges) {
+                int u = edge[0];
+                int v = edge[1];
+                int weight = edge[2];
+
+                // If u and v are in different sets, union them and add the edge to the MST
+                if (find(u, par) != find(v, par)) {
+                    union(u, v, par, rank); // Union the sets
+                    mstWeight += weight; // Add edge weight to MST
+                    edgesUsed++;
+
+                    // If we have added V-1 edges, the MST is complete
+                    if (edgesUsed == V - 1) {
+                        break;
+                    }
+                }
+            }
+
+            return mstWeight; // Return the total weight of the MST
+        }
+
+        // Find with path compression
+        public static int find(int x, int[] par) {
+            if (par[x] == x) {
+                return x;
+            }
+            return par[x] = find(par[x], par); // Path compression
+        }
+
+        // Union by rank
+        public static void union(int a, int b, int[] par, int[] rank) {
+            int rootA = find(a, par);
+            int rootB = find(b, par);
+            if (rootA != rootB) {
+                // Union by rank
+                if (rank[rootA] == rank[rootB]) {
+                    par[rootB] = rootA;
+                    rank[rootA]++;
+                } else if (rank[rootA] < rank[rootB]) {
+                    par[rootA] = rootB;
+                } else {
+                    par[rootB] = rootA;
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         // Graph is a network of nodes and edges
         // Stroing a graph in Java can be done using an
@@ -390,5 +533,46 @@ public class Graph {
         System.out.println("Is cycle in undirected graph: " + isCycleInUndirectedGraphUsingDfs(adj1, v));
 
         System.out.println("Topo sort:" + topologicalSort(6, adj1));
+
+        // Minimum Spanning Tree (MST)
+        // A minimum spanning tree (MST) or minimum weight spanning tree is a subset of
+        // the
+        // edges of a connected, edge-weighted undirected graph that connects all the
+        // vertices
+        // together, without any cycles and with the minimum possible total edge weight.
+
+        @SuppressWarnings("unchecked")
+        ArrayList<Edge> graph[] = new ArrayList[5];
+        for (int i = 0; i < 5; i++) {
+            graph[i] = new ArrayList<>();
+        }
+        graph[0].add(new Edge(0, 1, 10));
+        graph[0].add(new Edge(0, 2, 15));
+        graph[0].add(new Edge(0, 3, 30));
+
+        graph[1].add(new Edge(1, 0, 10));
+        graph[1].add(new Edge(1, 3, 40));
+
+        graph[2].add(new Edge(2, 0, 15));
+        graph[2].add(new Edge(2, 3, 50));
+
+        graph[3].add(new Edge(3, 1, 40));
+        graph[3].add(new Edge(3, 2, 50));
+
+        prims(graph);
+
+        // Disjoint Set (Union-Find)
+        // Disjoint Set is a data structure that keeps track of a set of elements
+        // partitioned into a number of disjoint (non-overlapping) subsets.
+
+        init();
+        union(1, 3);
+        System.out.println("Find 0: " + find(3));
+        union(2, 4);
+        union(3, 6);
+        union(1, 4);
+        System.out.println("Find 1: " + find(3));
+        System.out.println("Find 2: " + find(4));
+        union(1, 5);
     }
 }
