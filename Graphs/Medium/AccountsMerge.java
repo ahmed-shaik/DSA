@@ -1,3 +1,7 @@
+package Graphs.Medium;
+
+import java.util.*;
+
 public class AccountsMerge {
     class DisjointSet {
         List<Integer> rank = new ArrayList<>();
