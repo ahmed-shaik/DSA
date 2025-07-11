@@ -1,4 +1,4 @@
-package DynamicProgramming.Medium;
+package DynamicProgramming.Hard;
 
 public class MinimumInsertionStepstoMakeaStringPalindrome {
     class Solution {
