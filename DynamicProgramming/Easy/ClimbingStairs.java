@@ -35,7 +35,7 @@ public class ClimbingStairs {
         }
     }
 
-    // optimized
+    // optimiz ed
     class Solution2 {
         public int climbStairs(int n) {
             int p0 = 1;
